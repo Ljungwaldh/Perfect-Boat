@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="jumbotron jumbotron-fluid col-12">
+  <div class="container">
+        <h1 class="display-4">Rate My Boat</h1>
+        <p class="lead">Add your boat to our ocean - or rate others! </p>
+  </div>
+</div>
+{% for boat in boats %}
+<div class="col-md-10 col-lg-8 my-2 mx-2">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ boat.name }}</h5>
+    <img src="{{ boat.img }}" class="card-img-top" alt="{{ boat.name }}">
+    <p class="card-text">{{ boat.description }}</p>
+    <form method="post" action="{{ url_for('add_rating', boat_id=boat._id) }}">
+        <input type="text" name="comment">
+        <select id="cars" name="stars">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        </select>
+      
+        <input type="submit" value="Submit">
+    </form>
+    {% for comment in boat.comments %}
+    <hr>
+        <p>{{ comment[0] }}</p>
+        <p>{{ comment[1] }} stars</p>
+    {% endfor %}
+  </div>
+</div>
+</div>
+{% endfor %}
+{% endblock %}
